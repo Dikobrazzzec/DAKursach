@@ -1,4 +1,5 @@
 ﻿  KursovayaAgapov.cpp
 E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(80,12): warning C4566: символ, представленный универсальным именем символа "\u200B", невозможно представить в текущей кодовой странице (1251)
 E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(70,36): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(93): warning C4715: MatrixWorker::operator*: значение возвращается не при всех путях выполнения
   KursovayaAgapov.vcxproj -> E:\C++проекты\DAKursach\Debug\KursovayaAgapov.exe

@@ -80,38 +80,17 @@ public:
 			cout << "The number of columns of the first matrix is ​​not equal to the number of rows of the second matrix. Multiplication is not possible";
 		}
 		else {
-			int i2 = 0;
-			int j2 = 0;
-			int j3 = 0;
-			int i3 = 0;
-			int counter = rows * B_.cols;
-			for (int y = 0; y < counter; y++) {
-				for (int i1 = 0; i1 < rows; i1++) {
-					for (int j1 = 0; j1 < cols; j1++) {
-						C_.Matrix[i3][j3] += Matrix[i1][j1] * B_.Matrix[i2][j2];
-						i2++;
-						if (i2 == 3) { i2 = 0; }
-						//смотри блокнот
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < B_.cols; j++) {
+					C_.Matrix[i][j] = 0;
+					for (int k = 0; k < cols; k++) {
+						C_.Matrix[i][j] += Matrix[i][k] * B_.Matrix[k][j];
 					}
 				}
 			}
+			return C_;
 		}
-		return C_;
 	}
-
-	//c = new double* [row1];
-	//for (int i = 0; i < row1; i++)
-	//{
-	//	c[i] = new double[col2];
-	//	for (int j = 0; j < col2; j++)
-	//	{
-	//		c[i][j] = 0;
-	//		for (int k = 0; k < col1; k++)
-	//			c[i][j] += a[i][k] * b[k][j];
-	//	}
-	//}
-	////
-	
 
 
 	void test(MatrixWorker A_, MatrixWorker B_) {
@@ -151,11 +130,11 @@ int main()
 	////cout << A.Matrix[0][2]<<endl;
 	//cout << A.Matrix[1][3] << endl;
 	////cout << A.Matrix[3][2] << endl;
-	for (int i = 0; i < A.rows; i++) {
-		for (int j = 0; j < A.cols; j++) {
-			cout << A.Matrix[i][j] << endl;
-		}
-	}
+	//for (int i = 0; i < A.rows; i++) {
+	//	for (int j = 0; j < A.cols; j++) {
+	//		cout << A.Matrix[i][j] << endl;
+	//	}
+	//}
 	MatrixWorker B(4, 4);
 	B.Maker();
 	B.Filler();
@@ -183,8 +162,7 @@ int main()
 	cout << "........................................................" << endl;
 	cout << "..................Multiplication............................" << endl;
 	cout << "........................................................" << endl;
-	//C = A * B;
-	//C.Print();
-	cout << "-----------------------------------------------------------------------" << endl;
-	StarterTest();
+	C = A * B;
+	C.Print();
+
 }
