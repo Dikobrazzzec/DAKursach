@@ -5,9 +5,12 @@
 using namespace std;
 
 class MatrixWorker {
-public:
+protected:
+
 	int rows, cols, i, j;
 	double** Matrix;
+
+public:
 
 	MatrixWorker() {}
 
@@ -26,7 +29,7 @@ public:
 	void  Filler() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				Matrix[i][j] = rand() % 20;
+				Matrix[i][j] = rand() % 40-20;
 			}
 		}
 	}
@@ -222,7 +225,89 @@ public:
 	}
 };
 
-void Alltest() {
+class ComplexMatrix : public MatrixWorker {
+private:
+	ComplexMatrix** Matrix;
+	double Im, Re;
+public:
+	ComplexMatrix() {}
+	
+	ComplexMatrix(int rows_, int cols_) {
+		rows = rows_;
+		cols = cols_;
+	}
+
+	void Maker() {
+		Matrix = new ComplexMatrix* [rows];
+		for (i = 0; i < rows; i++) {
+			Matrix[i] = new ComplexMatrix[cols];
+		}
+	}
+
+	void  Filler() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				Matrix[i][j].Re = rand() % 40-20;
+				Matrix[i][j].Im = rand() % 40-20;
+			}
+		}
+	}
+
+	void HandFiller() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				cout << "Enter Re [" << i + 1 << "][" << j + 1 << "]" << endl;
+				cin >> Matrix[i][j].Re;
+				cout << "Enter Im [" << i + 1 << "][" << j + 1 << "]" << endl;
+				cin >> Matrix[i][j].Im;
+			}
+		}
+	}
+
+	void Print() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				cout << Matrix[i][j].Re;
+				if (Matrix[i][j].Im < 0) {
+					cout << Matrix[i][j].Im<<"*i ";
+				}
+				else {
+					cout <<"+"<< Matrix[i][j].Im << "*i ";
+				}
+			}
+			cout << endl;
+		}
+	}
+
+	ComplexMatrix Transpose() {
+		ComplexMatrix C_(cols, rows);
+		C_.Maker();
+		for (int i = 0; i < cols; i++) {
+			for (int j = 0; j < rows; j++) {
+				C_.Matrix[j][i] = Matrix[i][j];
+			}
+		}
+		return C_;
+	}
+
+
+	void ComplexConjugate() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j ++) {
+				Matrix[i][j].Im = 0 - Matrix[i][j].Im;
+			}
+		}
+	}
+
+	ComplexMatrix HermitConjugate(ComplexMatrix Parametr) {
+		Parametr = Parametr.Transpose();
+		Parametr.ComplexConjugate();
+		return Parametr;
+	}
+};
+
+
+void FirstStarter() {
 	MatrixWorker A(4, 4);
 	A.Maker();
 	A.Filler();
@@ -278,19 +363,30 @@ void Alltest() {
 	C.Print();
 }
 
-void StarterTest() {
-	MatrixWorker Q(4, 4);
+void SecondStarter() {
+	ComplexMatrix Q(3, 3);
 	Q.Maker();
 	Q.Filler();
 	Q.Print();
-	Q.TranspositionCols();
+	cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+	cout << "|||||||||||||||||||ComplexConjugate|||||||||||||||||||||" << endl;
+	cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+	Q.ComplexConjugate();
 	Q.Print();
-	Q.TranspositionRows();
+	cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+	cout << "|||||||||||||||||||HermitConjugate||||||||||||||||||||||" << endl;
+	cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+	Q=Q.HermitConjugate(Q);
 	Q.Print();
+}
+
+void StarterTest() {
+
 }
 
 int main()
 {
-	Alltest();
-	//StarterTest();
+	StarterTest();
+	//FirstStarter();
+	//SecondStarter();
 }

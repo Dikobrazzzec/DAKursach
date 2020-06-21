@@ -1,6 +1,6 @@
 ﻿  KursovayaAgapov.cpp
-E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(89,12): warning C4566: символ, представленный универсальным именем символа "\u200B", невозможно представить в текущей кодовой странице (1251)
-E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(164,31): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(200,31): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(102): warning C4715: MatrixWorker::operator*: значение возвращается не при всех путях выполнения
+E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(92,12): warning C4566: символ, представленный универсальным именем символа "\u200B", невозможно представить в текущей кодовой странице (1251)
+E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(167,31): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(203,31): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+E:\C++проекты\DAKursach\KursovayaAgapov\KursovayaAgapov.cpp(105): warning C4715: MatrixWorker::operator*: значение возвращается не при всех путях выполнения
   KursovayaAgapov.vcxproj -> E:\C++проекты\DAKursach\Debug\KursovayaAgapov.exe
