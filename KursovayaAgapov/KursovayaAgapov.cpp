@@ -99,10 +99,47 @@ public:
 		return C_;
 	}
 
+	//c = new double* [row1];
+	//for (int i = 0; i < row1; i++)
+	//{
+	//	c[i] = new double[col2];
+	//	for (int j = 0; j < col2; j++)
+	//	{
+	//		c[i][j] = 0;
+	//		for (int k = 0; k < col1; k++)
+	//			c[i][j] += a[i][k] * b[k][j];
+	//	}
+	//}
+	////
+	
 
-	MatrixWorker test(MatrixWorker B_) {
+
+	void test(MatrixWorker A_, MatrixWorker B_) {
+		MatrixWorker C_(A_.rows, B_.cols);
+		C_.Maker();
+		for (int i = 0; i < A_.rows; i++) {
+			for (int j = 0; j < B_.cols; j++) {
+				C_.Matrix[i][j] = 0;
+				for (int k = 0; k < A_.cols; k++) {
+					C_.Matrix[i][j] += A_.Matrix[i][k] * B_.Matrix[k][j];
+				}
+			}
+		}
+		C_.Print();
 	}
 };
+
+void StarterTest() {
+	MatrixWorker Q(4, 4);
+	Q.Maker();
+	Q.Filler();
+	Q.Print();
+	MatrixWorker W(4, 4);
+	W.Maker();
+	W.Filler();
+	W.Print();
+	Q.test(Q, W);
+}
 
 int main()
 {
@@ -111,9 +148,9 @@ int main()
 	A.Filler();
 	A.Print();
 	cout << "........................................................" << endl;
-	//cout << A.Matrix[0][2]<<endl;
+	////cout << A.Matrix[0][2]<<endl;
 	//cout << A.Matrix[1][3] << endl;
-	//cout << A.Matrix[3][2] << endl;
+	////cout << A.Matrix[3][2] << endl;
 	for (int i = 0; i < A.rows; i++) {
 		for (int j = 0; j < A.cols; j++) {
 			cout << A.Matrix[i][j] << endl;
@@ -146,6 +183,8 @@ int main()
 	cout << "........................................................" << endl;
 	cout << "..................Multiplication............................" << endl;
 	cout << "........................................................" << endl;
-	C = A * B;
-	C.Print();
+	//C = A * B;
+	//C.Print();
+	cout << "-----------------------------------------------------------------------" << endl;
+	StarterTest();
 }
