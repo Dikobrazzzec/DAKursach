@@ -1,0 +1,4 @@
+﻿  KursovayaAgapov.cpp
+C:\Users\Илья\source\repos\KursovayaAgapov\KursovayaAgapov\KursovayaAgapov.cpp(80,12): warning C4566: символ, представленный универсальным именем символа "\u200B", невозможно представить в текущей кодовой странице (1251)
+C:\Users\Илья\source\repos\KursovayaAgapov\KursovayaAgapov\KursovayaAgapov.cpp(70,36): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  KursovayaAgapov.vcxproj -> C:\Users\Илья\source\repos\KursovayaAgapov\Debug\KursovayaAgapov.exe
