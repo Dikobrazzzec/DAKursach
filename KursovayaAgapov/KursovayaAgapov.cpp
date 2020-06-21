@@ -7,7 +7,7 @@ using namespace std;
 class MatrixWorker {
 public:
 	int rows, cols, i, j;
-	int** Matrix;
+	double** Matrix;
 
 	MatrixWorker() {}
 
@@ -17,9 +17,9 @@ public:
 	}
 
 	void Maker() {
-		Matrix = new int* [rows];
+		Matrix = new double* [rows];
 		for (i = 0; i < rows; i++) {
-			Matrix[i] = new int[cols];
+			Matrix[i] = new double[cols];
 		}
 	}
 
@@ -27,6 +27,15 @@ public:
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				Matrix[i][j] = rand() % 20;
+			}
+		}
+	}
+
+	void HandFiller() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				cout << "Enter [" << i + 1 << "][" << j + 1 << "]" << endl;
+				cin >> Matrix[i][j];
 			}
 		}
 	}
@@ -92,49 +101,133 @@ public:
 		}
 	}
 
-
-	void test(MatrixWorker A_, MatrixWorker B_) {
-		MatrixWorker C_(A_.rows, B_.cols);
-		C_.Maker();
-		for (int i = 0; i < A_.rows; i++) {
-			for (int j = 0; j < B_.cols; j++) {
-				C_.Matrix[i][j] = 0;
-				for (int k = 0; k < A_.cols; k++) {
-					C_.Matrix[i][j] += A_.Matrix[i][k] * B_.Matrix[k][j];
+	void DiagonalProperty() {
+		if (rows != cols) {
+			cout << "Matrix isn't diagonal"<<endl;
+		}
+		else {
+			bool tester = false;
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < cols; j++) {
+					if (i != j) {
+						if (Matrix[i][j] == 0) {
+							tester = true;
+						}
+						else {
+							tester = false;
+						}
+						if (tester == false) {
+							cout << "Matrix isn't diagonal" << endl;
+							break;
+						}
+					}
+				}
+				if (tester == false) {
+					break;
 				}
 			}
+			if (tester == true) {
+				cout << "Matrix is diagonal" << endl;
+			}
 		}
-		C_.Print();
+	
+	}
+
+    int TranspositionRows() {
+		float container;
+		int row1, row2;
+		cout << "Enter row1" << endl;
+		cin >> row1;
+		if (row1==0) {
+			cout << "There isn't " << row1 << ". Enter correct value" << endl;
+			return 0;
+		}
+		if (row1 > rows) {
+			cout << "There isn't " << row1 << ". Enter correct value"<<endl;
+			return 0;
+		}
+		else {
+			cout << "Enter row2" << endl;
+			cin >> row2;
+		}
+		if (row2 == 0) {
+			cout << "There isn't " << row2 << ". Enter correct value" << endl;
+			return 0;
+		}
+		if (row2 > rows) {
+			cout << "There isn't " << row2 << ". Enter correct value" << endl;
+		}
+		else {
+			row1--;
+			row2--;
+			for (int j = 0; j < cols; j++) {
+				container = Matrix[row1][j];
+				Matrix[row1][j] = Matrix[row2][j];
+				Matrix[row2][j] = container;
+			}
+		}
+		return 0;
+	}
+
+	int TranspositionCols() {
+		float container;
+		int col1, col2;
+		cout << "Enter col1" << endl;
+		cin >> col1;
+		if (col1 == 0) {
+			cout << "There isn't " << col1 << ". Enter correct value" << endl;
+			return 0;
+		}
+		if (col1 > cols) {
+			cout << "There isn't " << col1 << ". Enter correct value" << endl;
+			return 0;
+		}
+		else {
+			cout << "Enter col2" << endl;
+			cin >> col2;
+		}
+		if (col2 == 0) {
+			cout << "There isn't " << col2 << ". Enter correct value" << endl;
+			return 0;
+		}
+		if (col2 > cols) {
+			cout << "There isn't " << col2 << ". Enter correct value" << endl;
+		}
+		else {
+			col1--;
+			col2--;
+			for (int i = 0; i < rows; i++) {
+				container = Matrix[i][col1];
+				Matrix[i][col1] = Matrix[i][col2];
+				Matrix[i][col2] = container;
+			}
+		}
+		return 0;
+	}
+
+	MatrixWorker Transpose() {
+		MatrixWorker C_(cols, rows);
+		C_.Maker();
+		for (int i = 0; i < cols; i++) {
+			for (int j = 0; j < rows; j++) {
+				C_.Matrix[j][i] = Matrix[i][j];
+			}
+		}
+		return C_;
+	}
+
+
+	void ClassTest(MatrixWorker A_, MatrixWorker B_) {
+
 	}
 };
 
-void StarterTest() {
-	MatrixWorker Q(4, 4);
-	Q.Maker();
-	Q.Filler();
-	Q.Print();
-	MatrixWorker W(4, 4);
-	W.Maker();
-	W.Filler();
-	W.Print();
-	Q.test(Q, W);
-}
-
-int main()
-{
-	MatrixWorker A (4,4);
+void Alltest() {
+	MatrixWorker A(4, 4);
 	A.Maker();
 	A.Filler();
 	A.Print();
 	cout << "........................................................" << endl;
-	////cout << A.Matrix[0][2]<<endl;
-	//cout << A.Matrix[1][3] << endl;
-	////cout << A.Matrix[3][2] << endl;
-	//for (int i = 0; i < A.rows; i++) {
-	//	for (int j = 0; j < A.cols; j++) {
-	//		cout << A.Matrix[i][j] << endl;
-	//	}
-	//}
 	MatrixWorker B(4, 4);
 	B.Maker();
 	B.Filler();
@@ -145,24 +238,59 @@ int main()
 	C.Filler();
 	C.Print();
 	cout << "........................................................" << endl;
-	cout << "..................Addition................" << endl;
+	cout << "..................Addition.............................." << endl;
 	cout << "........................................................" << endl;
 	C = A + B;
 	C.Print();
 	cout << "........................................................" << endl;
-	cout << "..................Substraction............................" << endl;
+	cout << "..................Substraction.........................." << endl;
 	cout << "........................................................" << endl;
 	C = A - B;
 	C.Print();
 	cout << "........................................................" << endl;
-	cout << "..................MultiplicationNumber............................" << endl;
+	cout << "..................MultiplicationNumber.................." << endl;
 	cout << "........................................................" << endl;
 	C = A.MultNum(5);
 	C.Print();
 	cout << "........................................................" << endl;
-	cout << "..................Multiplication............................" << endl;
+	cout << "..................Multiplication........................" << endl;
 	cout << "........................................................" << endl;
 	C = A * B;
 	C.Print();
+	cout << "........................................................" << endl;
+	cout << "..................Transpose............................." << endl;
+	cout << "........................................................" << endl;
+	C = C.Transpose();
+	C.Print();
+	cout << "........................................................" << endl;
+	cout << "..................DiagonalProperty......................" << endl;
+	cout << "........................................................" << endl;
+	C.DiagonalProperty();
+	cout << "........................................................" << endl;
+	cout << "..................TranspositionCols....................." << endl;
+	cout << "........................................................" << endl;
+	C.TranspositionCols();
+	C.Print();
+	cout << "........................................................" << endl;
+	cout << "..................TranspositionRows....................." << endl;
+	cout << "........................................................" << endl;
+	C.TranspositionRows();
+	C.Print();
+}
 
+void StarterTest() {
+	MatrixWorker Q(4, 4);
+	Q.Maker();
+	Q.Filler();
+	Q.Print();
+	Q.TranspositionCols();
+	Q.Print();
+	Q.TranspositionRows();
+	Q.Print();
+}
+
+int main()
+{
+	Alltest();
+	//StarterTest();
 }
