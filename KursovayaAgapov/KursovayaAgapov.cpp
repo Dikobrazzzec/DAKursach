@@ -380,13 +380,64 @@ void SecondStarter() {
 	Q.Print();
 }
 
-void StarterTest() {
+void Test() {
+	 
+}
 
+double determ(int** Arr, int size)
+{
+	int i, j;
+	double det = 0;
+	int** matr;
+	if (size == 1)
+	{
+		det = Arr[0][0];
+	}
+	else if (size == 2)
+	{
+		det = Arr[0][0] * Arr[1][1] - Arr[0][1] * Arr[1][0];
+	}
+	else
+	{
+		matr = new int* [size - 1];
+		for (i = 0; i < size; ++i)
+		{
+			for (j = 0; j < size - 1; ++j)
+			{
+				if (j < i)
+					matr[j] = Arr[j];
+				else
+					matr[j] = Arr[j + 1];
+			}
+			det += pow((double)-1, (i + j)) * determ(matr, size - 1) * Arr[i][size - 1];
+		}
+		delete[] matr;
+	}
+	return det;
 }
 
 int main()
 {
-	StarterTest();
-	//FirstStarter();
-	//SecondStarter();
+	//srand(time(NULL));
+	int size = 3;
+	int** Arr;
+	Arr = new int* [size];
+	for (int i = 0; i < size; ++i)
+		Arr[i] = new int[size];
+	for (int i = 0; i < size; ++i)
+		for (int j = 0; j < size; ++j)
+			Arr[i][j] = 0 + rand() % 5 - 1 + 1;
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+			std::cout << Arr[i][j] << ' ';
+		std::cout << std::endl;
+	}
+	std::cout << determ(Arr, size) << '\n';
+	for (int i = 0; i < size; ++i)
+		delete[] Arr[i];
+	delete[] Arr;
+	return 0;
 }
+
+
