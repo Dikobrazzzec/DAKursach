@@ -7,8 +7,9 @@ using namespace std;
 class MatrixWorker {
 protected:
 
-	int rows, cols, i, j;
+	int rows, cols, MatrixRang;
 	double** Matrix;
+	double MatrixDeterminant;
 
 public:
 
@@ -21,7 +22,7 @@ public:
 
 	void Maker() {
 		Matrix = new double* [rows];
-		for (i = 0; i < rows; i++) {
+		for (int i = 0; i < rows; i++) {
 			Matrix[i] = new double[cols];
 		}
 	}
@@ -219,9 +220,63 @@ public:
 		return C_;
 	}
 
+	double determ(double** Arr, int size)
+	{
+		int i, j;
+		double det = 0;
+		double** matr;
+		if (size == 1)
+		{
+			det = Arr[0][0];
+		}
+		else if (size == 2)
+		{
+			det = Arr[0][0] * Arr[1][1] - Arr[0][1] * Arr[1][0];
 
-	void ClassTest(MatrixWorker A_, MatrixWorker B_) {
+		}
+		else
+		{
+			matr = new double* [size - 1];
+			for (i = 0; i < size; ++i)
+			{
+				for (j = 0; j < size - 1; ++j)
+				{
+					if (j < i)
+						matr[j] = Arr[j];
+					else
+						matr[j] = Arr[j + 1];
+				}
+				det += pow((double)-1, (i + j)) * determ(matr, size - 1) * Arr[i][size - 1];
 
+			}
+			delete[] matr;
+		}
+		return det;
+	}
+
+	void DeterminantOperator() {
+		if (cols != rows) {
+			cout << "Impossible to calculate matrix's determinant" << endl;
+		}
+		else {
+			MatrixDeterminant = determ(Matrix, rows);
+			cout << MatrixDeterminant << endl;
+		}
+	}
+
+	int Rang() {
+		int i = rows; 
+		while (i>= 0) {
+			if (determ(Matrix, i) != 0) {
+				cout << "Matrix's rang" << i << endl;
+				MatrixRang = i;
+				return 0;
+			}
+			else {
+				i--;
+			}
+		}
+		return 0;
 	}
 };
 
@@ -239,7 +294,7 @@ public:
 
 	void Maker() {
 		Matrix = new ComplexMatrix* [rows];
-		for (i = 0; i < rows; i++) {
+		for (int i = 0; i < rows; i++) {
 			Matrix[i] = new ComplexMatrix[cols];
 		}
 	}
@@ -361,6 +416,14 @@ void FirstStarter() {
 	cout << "........................................................" << endl;
 	C.TranspositionRows();
 	C.Print();
+	cout << "........................................................" << endl;
+	cout << "..................Determinant..........................." << endl;
+	cout << "........................................................" << endl;
+	C.DeterminantOperator();
+	cout << "........................................................" << endl;
+	cout << "..................Rang..........................." << endl;
+	cout << "........................................................" << endl;
+	C.Rang();
 }
 
 void SecondStarter() {
@@ -380,64 +443,12 @@ void SecondStarter() {
 	Q.Print();
 }
 
-void Test() {
-	 
-}
-
-double determ(int** Arr, int size)
-{
-	int i, j;
-	double det = 0;
-	int** matr;
-	if (size == 1)
-	{
-		det = Arr[0][0];
-	}
-	else if (size == 2)
-	{
-		det = Arr[0][0] * Arr[1][1] - Arr[0][1] * Arr[1][0];
-	}
-	else
-	{
-		matr = new int* [size - 1];
-		for (i = 0; i < size; ++i)
-		{
-			for (j = 0; j < size - 1; ++j)
-			{
-				if (j < i)
-					matr[j] = Arr[j];
-				else
-					matr[j] = Arr[j + 1];
-			}
-			det += pow((double)-1, (i + j)) * determ(matr, size - 1) * Arr[i][size - 1];
-		}
-		delete[] matr;
-	}
-	return det;
-}
 
 int main()
 {
-	//srand(time(NULL));
-	int size = 3;
-	int** Arr;
-	Arr = new int* [size];
-	for (int i = 0; i < size; ++i)
-		Arr[i] = new int[size];
-	for (int i = 0; i < size; ++i)
-		for (int j = 0; j < size; ++j)
-			Arr[i][j] = 0 + rand() % 5 - 1 + 1;
-	for (int i = 0; i < size; ++i)
-	{
-		for (int j = 0; j < size; ++j)
-			std::cout << Arr[i][j] << ' ';
-		std::cout << std::endl;
-	}
-	std::cout << determ(Arr, size) << '\n';
-	for (int i = 0; i < size; ++i)
-		delete[] Arr[i];
-	delete[] Arr;
-	return 0;
+	FirstStarter();
+	SecondStarter();
+
 }
 
 
